@@ -1,0 +1,10 @@
+INSERT INTO product (nombre, precio) VALUES ('Leche entera 1L', 1.20);
+INSERT INTO product (nombre, precio) VALUES ('Pan de barra', 0.90);
+INSERT INTO product (nombre, precio) VALUES ('Huevos docena', 2.10);
+INSERT INTO product (nombre, precio) VALUES ('Arroz largo 1kg', 1.45);
+INSERT INTO product (nombre, precio) VALUES ('Pasta espagueti 500g', 0.95);
+INSERT INTO product (nombre, precio) VALUES ('Pechuga de pollo 500g', 3.75);
+INSERT INTO product (nombre, precio) VALUES ('Manzanas Golden 1kg', 1.80);
+INSERT INTO product (nombre, precio) VALUES ('Plátanos 1kg', 1.65);
+INSERT INTO product (nombre, precio) VALUES ('Yogur natural pack 4', 1.10);
+INSERT INTO product (nombre, precio) VALUES ('Aceite de oliva 1L', 6.50);
