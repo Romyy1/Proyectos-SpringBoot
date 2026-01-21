@@ -52,9 +52,6 @@ public class Mapper {
                 .ticketProduct(tpDTO)
                 .total(total)
                 .build();
-
-
-
     }
 
     //Mapeo de TicketProduct a TicketProductDTO
