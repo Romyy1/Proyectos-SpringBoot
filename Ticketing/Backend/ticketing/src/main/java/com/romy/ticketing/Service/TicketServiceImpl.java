@@ -1,8 +1,10 @@
 package com.romy.ticketing.Service;
 
+import com.romy.ticketing.Exceptions.NotFoundException;
 import com.romy.ticketing.Mappers.Mapper;
 import com.romy.ticketing.Model.DTO.ProductDTO;
 import com.romy.ticketing.Model.DTO.TicketDTO;
+import com.romy.ticketing.Model.DTO.TicketProductDTO;
 import com.romy.ticketing.Model.Product;
 import com.romy.ticketing.Model.Ticket;
 import com.romy.ticketing.Model.TicketProduct;
@@ -11,6 +13,7 @@ import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,22 +38,60 @@ public class TicketServiceImpl implements ITicketService{
 
     //Creamos un ticket nuevo
     @Override
-    public TicketDTO crearTicket(TicketDTO ticket) {
-        return null;
+    public TicketDTO crearTicket(TicketDTO t) {
+
+        if(t == null) throw new RuntimeException("El ticket es nulo");
+        if(t.getTicketProduct() == null) throw new RuntimeException("Necesitamos el detalle del ticket");
+
+        //Creamos el ticket y lo guardamos en un objeto tipo Ticket
+        Ticket ticket = Ticket.builder()
+                .id(t.getId())
+                .total(t.getTotal())
+                .date(t.getDate())
+                .build();
+
+        //Ahora creamos el ticketProduct DTO para añadirlo
+
+        List<TicketProductDTO> tpDTO = new ArrayList<>();
+
+        for (TicketProductDTO dto : tpDTO){
+
+
+
+        }
+
+        //Pasamos el objeto creado al mapper para que nos devuelva su DTO
+        return Mapper.toDTO(repository.save(ticket));
     }
 
     //Actualizamos un ticket ya que está creado
     @Override
-    public TicketDTO updateTicket(TicketDTO ticket) {
-        return null;
+    public TicketDTO updateTicket(Long id, TicketDTO ticket) {
+
+        //Primero buscamos si existe el ticket en la base de datos
+        Ticket t = repository.findById(id).orElseThrow(()->
+                new NotFoundException("Producto no encontrado, no se puede actualizar"));
+
+        t.setTicketProduct(ticket.getTicketProduct().stream().map(Mapper::toDTO).toList());
+        t.setDate(ticket.getDate());
+        t.setTotal(ticket.getTotal());
+        t.setId(ticket.getId());
+
+        return Mapper.toDTO(repository.save(t));
     }
 
     //Eliminamos un ticket ya existente
     @Override
-    public String deleteTicket(Long id) {
+    public void deleteTicket(Long id) {
 
+        //Buscamos si existe el producto
+        if(!repository.existsById(id)){
 
-        return "Se ha eliminado el ticket co id: "+id;
+            throw new NotFoundException("Ticket no encontrado, no se puede eliminar");
+
+        }
+        //Lo eliminamos
+        repository.deleteById(id);
     }
 
 }

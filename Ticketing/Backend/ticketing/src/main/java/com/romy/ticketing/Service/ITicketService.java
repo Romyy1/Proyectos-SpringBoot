@@ -16,7 +16,7 @@ public interface ITicketService {
 
     TicketDTO crearTicket(TicketDTO ticket);
 
-    TicketDTO updateTicket(TicketDTO ticket);
+    TicketDTO updateTicket(Long id,TicketDTO ticket);
 
-    String deleteTicket(Long id);
+    void deleteTicket(Long id);
 }

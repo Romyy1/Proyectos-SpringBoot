@@ -1,15 +1,16 @@
 package com.romy.ticketing.Service;
 
+import com.romy.ticketing.Exceptions.NotFoundException;
 import com.romy.ticketing.Mappers.Mapper;
 import com.romy.ticketing.Model.DTO.ProductDTO;
 import com.romy.ticketing.Model.Product;
 import com.romy.ticketing.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements IProductService{
@@ -20,31 +21,16 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public ProductDTO findById(Long id){
 
-        Product p = repository.findById(id).orElseThrow();
+        Product p = repository.findById(id).orElseThrow(()->
+                new NotFoundException("Producto no encontrado"));
 
-        ProductDTO pDTO = new ProductDTO();
-
-        pDTO.setNombre(p.getNombre());
-        pDTO.setPrecio(p.getPrecio());
-
-        return pDTO;
+        return Mapper.toDTO(p);
 
     }
     @Override
     public List<ProductDTO> findAll(){
 
-        List<Product> p = repository.findAll();
-        List<ProductDTO> productDTO = new ArrayList<>();
-        for(int i =0;i<p.size();i++){
-            ProductDTO pr = new ProductDTO();
-            pr.setNombre(p.get(i).getNombre());
-            pr.setPrecio(p.get(i).getPrecio());
-            pr.setTicketProduct(p.get(i).getTicketProduct());
-            pr.setId(p.get(i).getId());
-            productDTO.add(pr);
-
-        }
-        return productDTO;
+        return repository.findAll().stream().map(Mapper::toDTO).toList();
 
     }
 
@@ -68,7 +54,8 @@ public class ProductServiceImpl implements IProductService{
     public ProductDTO updateProduct(Long id,ProductDTO product) {
 
         //Primero buscamos si existe el producto en la base de datos
-        Product prod = repository.findById(id).orElseThrow();
+        Product prod = repository.findById(id).orElseThrow(()->
+                new NotFoundException("Producto no encontrado, no se puede actualizar"));
 
         prod.setNombre(product.getNombre());
         prod.setTicketProduct(product.getTicketProduct());
@@ -78,15 +65,16 @@ public class ProductServiceImpl implements IProductService{
     }
 
     @Override
-    public String deleteProduct(Long id) {
+    public void deleteProduct(Long id) {
+        //Buscamos si existe el producto
+        if(!repository.existsById(id)){
 
-        Product pr = repository.findById(id).orElseThrow();
+            throw new NotFoundException("Producto no encontrado, no se puede eliminar");
 
-        repository.delete(pr);
+        }
+        //Lo eliminamos
+        repository.deleteById(id);
 
-        String sol = "El producto con id" + id + " ha sido eliminado";
-
-        return sol;
     }
 
 }
