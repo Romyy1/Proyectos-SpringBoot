@@ -7,6 +7,7 @@ import com.romy.ticketing.Model.Product;
 import com.romy.ticketing.Model.Ticket;
 import com.romy.ticketing.Model.TicketProduct;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Mapper {
@@ -52,9 +53,6 @@ public class Mapper {
                 .ticketProduct(tpDTO)
                 .total(total)
                 .build();
-
-
-
     }
 
     //Mapeo de TicketProduct a TicketProductDTO
