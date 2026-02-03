@@ -1,5 +1,6 @@
 package com.romy.ticketing.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,10 +22,9 @@ public class Product {
     String nombre;
     Double precio;
 
-    @ManyToOne
-    @JoinColumn(name = "ticket_id")
-    List<TicketProduct> ticketProduct = new ArrayList<>();
-
+    @OneToMany(mappedBy = "product_id")
+    @JsonIgnore
+    private List<TicketProduct> ticketProduct = new ArrayList<>();
 
 
 }

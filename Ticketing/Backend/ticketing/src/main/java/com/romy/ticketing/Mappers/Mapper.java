@@ -1,20 +1,31 @@
 package com.romy.ticketing.Mappers;
 
+import com.romy.ticketing.Exceptions.NotFoundException;
 import com.romy.ticketing.Model.DTO.ProductDTO;
 import com.romy.ticketing.Model.DTO.TicketDTO;
 import com.romy.ticketing.Model.DTO.TicketProductDTO;
 import com.romy.ticketing.Model.Product;
 import com.romy.ticketing.Model.Ticket;
 import com.romy.ticketing.Model.TicketProduct;
+import com.romy.ticketing.Repository.ProductRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@NoArgsConstructor
+@Component
 public class Mapper {
 
-    //Mapeo de Product a ProductDTO
+    @Autowired
+    private ProductRepository productRepository;
 
-    public static ProductDTO toDTO(Product p){
+    //Mapeo de Product a ProductDTO
+    public ProductDTO toDTO(Product p){
 
         if(p==null) return null;
 
@@ -26,49 +37,41 @@ public class Mapper {
 
     }
 
+    public String toString(Product p) {
+        return "Product{id=" + p.getId() + ", nombre='" + p.getNombre() + "', precio=" + p.getPrecio() + "}";
+    }
+
     //Mapeo de Ticket a TicketDTO
+    public TicketDTO toDTO(Ticket t){
 
-    public static TicketDTO toDTO(Ticket t){
 
-        if(t==null) return null;
+        List<TicketProductDTO> tpDTO = new ArrayList<>();
 
-        var tpDTO = t.getTicketProduct().stream().map(td ->
-                TicketProductDTO.builder()
-                        .id(td.getId())
-                        .ticket_id(td.getTicket_id())
-                        .product_id(td.getProduct_id())
-                        .quantity(td.getQuantity())
-                        .price(td.getPrice())
-                        .total(td.getPrice() * td.getQuantity())
-                        .build()
-        ).toList();
+        for (TicketProduct ticketprod : t.getTicketProduct()){
 
-        var total = tpDTO.stream()
-                .map(TicketProductDTO::getTotal)
-                .reduce(0.0, Double::sum);
+            Product p = productRepository.findById(ticketprod.getProduct_id().getId()).orElseThrow(() -> new NotFoundException("Producto no encontrado: " + ticketprod.getProduct_id()));
 
-        return TicketDTO.builder()
+            System.out.println(toString(p));
+
+            TicketProductDTO ticketP = new TicketProductDTO();
+
+            ticketP.setId(ticketprod.getId());
+            ticketP.setProduct_id(p);
+            ticketP.setPrice(p.getPrecio());
+            ticketP.setQuantity(ticketprod.getQuantity());
+            ticketP.setTotal(p.getPrecio() * ticketprod.getQuantity());
+
+            tpDTO.add(ticketP);
+
+        }
+      var total=  tpDTO.stream().map(TicketProductDTO::getTotal).reduce(0.0,Double::sum);
+
+      return TicketDTO.builder()
                 .date(t.getDate())
                 .id(t.getId())
                 .ticketProduct(tpDTO)
                 .total(total)
                 .build();
-    }
-
-    //Mapeo de TicketProduct a TicketProductDTO
-
-    public static TicketProductDTO toDTO(TicketProduct tp){
-
-        if(tp==null) return null;
-
-        return TicketProductDTO.builder()
-                .id(tp.getId())
-                .price(tp.getPrice())
-                .product_id(tp.getProduct_id())
-                .ticket_id(tp.getTicket_id())
-                .quantity(tp.getQuantity())
-                .build();
-
     }
 
 }

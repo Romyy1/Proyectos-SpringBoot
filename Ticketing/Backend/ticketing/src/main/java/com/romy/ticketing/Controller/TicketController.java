@@ -1,7 +1,9 @@
 package com.romy.ticketing.Controller;
 
+import com.romy.ticketing.Mappers.Mapper;
 import com.romy.ticketing.Model.DTO.ProductDTO;
 import com.romy.ticketing.Model.DTO.TicketDTO;
+import com.romy.ticketing.Model.Product;
 import com.romy.ticketing.Model.Ticket;
 import com.romy.ticketing.Model.TicketProduct;
 import com.romy.ticketing.Service.TicketServiceImpl;
@@ -17,6 +19,8 @@ public class TicketController {
 
     @Autowired
     private TicketServiceImpl service;
+    @Autowired
+    private Mapper mapper;
 
     @GetMapping("/{id}")
     public Optional<TicketDTO> ticket(@PathVariable Long id){
@@ -30,6 +34,13 @@ public class TicketController {
     public List<TicketDTO> findAll(){
 
         return service.findAll();
+
+    }
+
+    @PostMapping("/create")
+    public TicketDTO createProduct(@RequestBody Ticket t){
+
+        return service.crearTicket(this.mapper.toDTO(t));
 
     }
 

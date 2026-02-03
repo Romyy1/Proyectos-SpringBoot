@@ -18,19 +18,22 @@ public class ProductServiceImpl implements IProductService{
     @Autowired
     private ProductRepository repository;
 
+    @Autowired
+    private Mapper mapper;
+
     @Override
     public ProductDTO findById(Long id){
 
         Product p = repository.findById(id).orElseThrow(()->
                 new NotFoundException("Producto no encontrado"));
 
-        return Mapper.toDTO(p);
+        return mapper.toDTO(p);
 
     }
     @Override
     public List<ProductDTO> findAll(){
 
-        return repository.findAll().stream().map(Mapper::toDTO).toList();
+        return repository.findAll().stream().map(mapper::toDTO).toList();
 
     }
 
@@ -41,13 +44,14 @@ public class ProductServiceImpl implements IProductService{
         Product prod = Product.builder()
                 .nombre(product.getNombre())
                 .precio(product.getPrecio())
-                .ticketProduct(product.getTicketProduct())
                 .build();
         //Para poder retornar el DTO, llamamos al method
         // toDTO() del Mapper y le pasamos como argumento el objeto
         // que acabamos de crear y mientras también lo guardamos
         // en la base de datos
-        return Mapper.toDTO(repository.save(prod));
+        Product saved = repository.save(prod);
+
+        return mapper.toDTO(saved);
     }
 
     @Override
@@ -58,10 +62,9 @@ public class ProductServiceImpl implements IProductService{
                 new NotFoundException("Producto no encontrado, no se puede actualizar"));
 
         prod.setNombre(product.getNombre());
-        prod.setTicketProduct(product.getTicketProduct());
         prod.setPrecio(product.getPrecio());
 
-        return Mapper.toDTO(repository.save(prod));
+        return mapper.toDTO(repository.save(prod));
     }
 
     @Override

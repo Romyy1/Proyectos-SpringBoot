@@ -1,6 +1,8 @@
 package com.romy.ticketing.Controller;
 
+import com.romy.ticketing.Mappers.Mapper;
 import com.romy.ticketing.Model.DTO.ProductDTO;
+import com.romy.ticketing.Model.Product;
 import com.romy.ticketing.Service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,20 @@ public class ProductController {
 
     @Autowired
     private ProductServiceImpl service;
+    @Autowired
+    private Mapper mapper;
 
     @GetMapping("/{id}")
     public ProductDTO findById(@PathVariable Long id){
 
         return service.findById(id);
+
+    }
+
+    @PostMapping("/create")
+    public ProductDTO createProduct(@RequestBody Product p){
+
+        return service.crearProduct(mapper.toDTO(p));
 
     }
 
@@ -29,9 +40,9 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    public ProductDTO updateProduct(@PathVariable Long id, @RequestBody ProductDTO product){
+    public ProductDTO updateProduct(@PathVariable Long id, @RequestBody Product product){
 
-        return service.updateProduct(id,product);
+        return service.updateProduct(id,mapper.toDTO(product));
 
     }
 

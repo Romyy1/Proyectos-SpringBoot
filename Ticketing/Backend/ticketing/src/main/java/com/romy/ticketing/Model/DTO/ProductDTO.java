@@ -15,6 +15,5 @@ public class ProductDTO {
     Long id;
     String nombre;
     Double precio;
-    List<TicketProduct> ticketProduct;
 
 }
