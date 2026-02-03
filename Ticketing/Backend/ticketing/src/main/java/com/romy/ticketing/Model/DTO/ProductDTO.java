@@ -1,6 +1,9 @@
 package com.romy.ticketing.Model.DTO;
 
+import com.romy.ticketing.Model.TicketProduct;
 import lombok.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
