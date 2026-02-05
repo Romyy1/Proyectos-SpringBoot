@@ -70,7 +70,7 @@ El proyecto cuenta con un archivo **import.sql** el cual cuando se crea la base 
 
 ## Estado del proyecto
 
-Este proyecto está en una primera versión con funcionalidad básica de la API, más adelante iré añadiendo:
+Este proyecto está en una primera versión con funcionalidad básica de la API por lo que solo cuenta con funcionalidad dentro de **Backend**, más adelante iré añadiendo:
 
 - Autenticación y autorización con JWT
 
@@ -84,7 +84,7 @@ Este proyecto está en una primera versión con funcionalidad básica de la API,
 
 ## Ejemplo de uso
 
-**Todos estos ejemplos se hacen en postman y una vez tengamos la base de datos ya creada**
+**Todos estos ejemplos se hacen en postman y una vez tengamos la base de datos ya creada, y todo en base a la carpeta "Backend" que es donde se encuentra la API**
 
 ### Crear ticket
 
