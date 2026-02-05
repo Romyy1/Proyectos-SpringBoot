@@ -77,7 +77,7 @@ public class TicketServiceImpl implements ITicketService{
         //Creamos el ticket y lo guardamos en un objeto tipo Ticket
         Ticket ticket = Ticket.builder()
                 .total(total)
-                .date(t.getDate())
+                .date(new Date())
                 .build();
 
         //Enlazamos el ticket con ticketProduct
@@ -127,12 +127,6 @@ public class TicketServiceImpl implements ITicketService{
             t.setTicketProduct(new ArrayList<>());
 
             t.getTicketProduct().addAll(list);
-
-        }
-
-        if(ticket.getDate() != null){
-
-            t.setDate(ticket.getDate());
 
         }
 
