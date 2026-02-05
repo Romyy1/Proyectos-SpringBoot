@@ -5,7 +5,7 @@ El objetivo de este portfolio es mostrar código claro, estructurado y mantenibl
 
 ##Tecnologías principales
 
-###Backend
+### Backend
 - **Java**
 - **Spring Boot**
 - Spring Data JPA / Hibernate
@@ -14,24 +14,24 @@ El objetivo de este portfolio es mostrar código claro, estructurado y mantenibl
 - Control de roles y permisos
 - Validaciones y manejo de errores
 
-###Frontend
+### Frontend
 - **Angular**
 - TypeScript
 - Consumo de APIs REST
 - Separación de componentes y servicios
 
-###Documentación y testing
+### Documentación y testing
 - Swagger / OpenAPI para documentación de APIs
 - Postman
 - Tests (unitarios y de integración, según proyecto)
 
-###Otros
+### Otros
 - **Bases de datos relacionales** (MySQL / PostgreSQL)
 - Git y control de versiones
 - Docker (en algunos proyectos)
 - Arquitectura en capas
 
-##Estructura del repositorio
+## Estructura del repositorio
 
 Cada proyecto estará organizado en su propio directorio, incluyendo:
 
@@ -39,6 +39,7 @@ Cada proyecto estará organizado en su propio directorio, incluyendo:
 - README específico del proyecto
 - Instrucciones de instalación y ejecución (dentro del README)
 - Ejemplos de uso (endpoints, capturas, etc.)
+
 
 
 
