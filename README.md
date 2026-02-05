@@ -3,7 +3,7 @@ En este repositorio iré publicando los distintos proyectos personales que voy d
 El objetivo de este portfolio es mostrar código claro, estructurado y mantenible, aplicando buenas prácticas y patrones habituales en entornos profesionales.
 
 
-##Tecnologías principales
+## Tecnologías principales
 
 ### Backend
 - **Java**
@@ -39,6 +39,7 @@ Cada proyecto estará organizado en su propio directorio, incluyendo:
 - README específico del proyecto
 - Instrucciones de instalación y ejecución (dentro del README)
 - Ejemplos de uso (endpoints, capturas, etc.)
+
 
 
 
