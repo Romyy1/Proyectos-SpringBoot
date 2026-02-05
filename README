@@ -1,4 +1,4 @@
-Bienvenido a mi portfolio de desarrollo.  
+**Bienvenido a mi portfolio de desarrollo.  **
 En este repositorio iré publicando los distintos proyectos personales que voy desarrollando para consolidar y demostrar mis conocimientos técnicos, principalmente en el ecosistema Java y Spring Boot, así como en tecnologías frontend y de integración habituales en proyectos reales.
 
 El objetivo de este portfolio es mostrar código claro, estructurado y mantenible, aplicando buenas prácticas y patrones habituales en entornos profesionales.
@@ -40,5 +40,6 @@ Cada proyecto estará organizado en su propio directorio, incluyendo:
 - README específico del proyecto
 - Instrucciones de instalación y ejecución (dentro del README)
 - Ejemplos de uso (endpoints, capturas, etc.)
+
 
 
