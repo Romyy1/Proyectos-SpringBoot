@@ -26,11 +26,11 @@ El sistema se basa principalmente en las siguientes entidades:
   - Total
   - Lista de productos asociados
 
-- **Product**
+**Product**
   - Nombre
   - Precio
 
-- **TicketProduct**
+**TicketProduct**
   - Relación entre Ticket y Product
   - Cantidad
 
